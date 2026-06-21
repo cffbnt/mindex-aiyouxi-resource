@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+  <title>爱游戏 · 知识库入口 | 日常查询 对照 延伸阅读</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+      background: linear-gradient(145deg, #fff0e0 0%, #fde2c8 30%, #f9d4ad 70%, #f5c99a 100%);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.6;
+      color: #3b2f28;
+    }
+
+    .page-wrapper {
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* 知识库入口式目录网格 — 暖色卡片与圆角按钮感链接 */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+      margin: 2rem 0 2.5rem;
+    }
+
+    @media (min-width: 600px) {
+      .grid-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .grid-layout {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .grid-layout .card:first-child {
+        grid-column: 1 / 2;
+      }
+      .grid-layout .card:nth-child(2) {
+        grid-column: 2 / 3;
+      }
+      .grid-layout .card:nth-child(3) {
+        grid-column: 3 / 4;
+      }
+      .grid-layout .card:nth-child(4) {
+        grid-column: 1 / 3;
+      }
+      .grid-layout .card:last-child {
+        grid-column: 3 / 4;
+      }
+    }
+
+    /* 卡片设计 — 白底、柔和阴影、圆角、暖色强调 */
+    .card {
+      background: #fffffffa;
+      backdrop-filter: blur(2px);
+      border-radius: 28px;
+      padding: 1.8rem 1.6rem 2rem;
+      box-shadow: 0 10px 28px -8px rgba(170, 110, 60, 0.18), 0 4px 12px rgba(210, 150, 90, 0.08);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      border: 1px solid rgba(255, 235, 215, 0.6);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      box-shadow: 0 18px 36px -12px rgba(150, 90, 50, 0.22);
+      transform: translateY(-3px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+      font-weight: 550;
+      font-size: 1.2rem;
+      letter-spacing: 0.02em;
+      color: #7a4f30;
+      border-bottom: 2px solid #f7dcc0;
+      padding-bottom: 0.6rem;
+    }
+
+    .card-header span {
+      background: #ebc9aa;
+      color: #3f2b1b;
+      border-radius: 40px;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .card p, .card li {
+      font-size: 0.98rem;
+      color: #3e3229;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0.2rem;
+      margin-top: 0.6rem;
+    }
+
+    .card li {
+      padding: 0.4rem 0 0.4rem 1.4rem;
+      position: relative;
+    }
+
+    .card li::before {
+      content: "·";
+      color: #b67d52;
+      font-weight: 700;
+      position: absolute;
+      left: 0.1rem;
+    }
+
+    /* 按钮感链接 — 圆角 pill 样式，像可以点按的入口 */
+    .link-button, .card a:not(.plain) {
+      display: inline-block;
+      background: #ffffff;
+      border: 1px solid #dfc1a3;
+      border-radius: 60px;
+      padding: 0.35rem 1.2rem 0.4rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #6a4026;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.2s, box-shadow 0.15s;
+      box-shadow: 0 2px 8px rgba(180, 120, 70, 0.1);
+      margin: 0.2rem 0.15rem;
+      line-height: 1.5;
+    }
+
+    .link-button:hover, .card a:not(.plain):hover {
+      background: #fcf2e6;
+      border-color: #b88056;
+      box-shadow: 0 4px 14px rgba(160, 100, 55, 0.18);
+      color: #3d281b;
+    }
+
+    /* 句子中自然嵌入链接（也保留按钮感） */
+    .inline-link {
+      background: transparent;
+      border: none;
+      color: #6f452a;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1.5px;
+      text-decoration-color: #dbb594;
+      padding: 0 0.1rem;
+      transition: color 0.15s, text-decoration-color 0.15s;
+    }
+
+    .inline-link:hover {
+      color: #3b2416;
+      text-decoration-color: #865d3b;
+    }
+
+    /* hero 区域 */
+    .hero {
+      text-align: center;
+      margin: 0.8rem 0 0.2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 460;
+      letter-spacing: 0.01em;
+      color: #3b2719;
+      background: rgba(255, 245, 235, 0.6);
+      display: inline-block;
+      padding: 0 1.8rem 0.2rem;
+      border-radius: 80px;
+      backdrop-filter: blur(4px);
+      line-height: 1.3;
+    }
+
+    .subhead {
+      font-size: 1.1rem;
+      color: #5f3f2b;
+      background: rgba(250, 235, 220, 0.6);
+      backdrop-filter: blur(2px);
+      display: inline-block;
+      padding: 0.3rem 2rem;
+      border-radius: 60px;
+      margin-top: 0.5rem;
+      max-width: 90%;
+    }
+
+    /* 说明区 / 提示区 / 相关信息区 */
+    .info-strip {
+      background: #fcf3e9e0;
+      backdrop-filter: blur(2px);
+      border-radius: 32px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0 1.8rem;
+      border: 1px solid #ecd5be;
+      text-align: center;
+    }
+
+    .info-strip p {
+      max-width: 800px;
+      margin: 0 auto 0.5rem;
+    }
+
+    .info-strip small {
+      color: #6a4d35;
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    .faq-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      background: #fffbf5d0;
+      border-radius: 40px;
+      padding: 1.8rem 1.5rem;
+      margin: 2rem 0 1rem;
+      backdrop-filter: blur(2px);
+      border: 1px solid #efd6bf;
+    }
+
+    .faq-item {
+      flex: 1 1 200px;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 12px rgba(170, 115, 65, 0.06);
+    }
+
+    .faq-item h4 {
+      font-weight: 520;
+      color: #613f28;
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
+    }
+
+    .faq-item p {
+      font-size: 0.92rem;
+      color: #4f3928;
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      border-top: 1px solid #dbbc9d;
+      padding-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-note .copy {
+      color: #563f2c;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .footer-note a {
+      color: #633f26;
+      font-weight: 450;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #bf9a7a;
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 500px) {
+      body { padding: 1.2rem 1rem; }
+      .hero h1 { font-size: 1.8rem; padding: 0.2rem 1rem; }
+      .card { padding: 1.4rem; }
+      .info-strip { padding: 1.2rem 1rem; }
+      .faq-preview { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- hero：目录感入口 -->
+  <div class="hero">
+    <h1>📋 爱游戏 · 知识库</h1>
+    <div class="subhead">日常查询 · 对照 · 延伸阅读</div>
+  </div>
+
+  <!-- 网格卡片：目录感布局，对应知识库入口 -->
+  <div class="grid-layout">
+
+    <div class="card">
+      <div class="card-header"><span>📖</span> 游戏分类对照</div>
+      <p>从角色扮演到模拟经营，从策略到休闲，快速对照主流类型与代表作。日常选游戏前，不妨先来<a href="https://mindex-aiyouxi.com.cn" class="inline-link">爱游戏</a>翻一翻分类索引，了解不同标签下的风格差异。</p>
+      <ul>
+        <li>RPG / 开放世界 条目对照</li>
+        <li>独立游戏 · 冷门佳作品类</li>
+        <li>多人合作 / 竞技分类速览</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span>🔍</span> 查询 · 延伸阅读</div>
+      <p>遇到陌生的游戏名词、机制或系列背景？知识库提供简明的延伸阅读入口，帮助你快速建立上下文。日常查询时，你会习惯先打开<a href="https://mindex-aiyouxi.com.cn" class="inline-link">爱游戏</a>，在相关词条间跳转对照。</p>
+      <ul>
+        <li>游戏机制 · 术语解释</li>
+        <li>系列年表 · 开发者访谈</li>
+        <li>版本差异 · 更新历史</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span>📌</span> 常用资料区</div>
+      <p>系统配置、成就列表、隐藏道具、剧情分支…… 把常用的攻略型资料收纳在一起，方便随时查阅。你也可以把值得收藏的页面加入书签，或者直接记住<a href="https://mindex-aiyouxi.com.cn" class="inline-link">爱游戏</a>这个地址。</p>
+      <ul>
+        <li>配置需求 · 性能参考</li>
+        <li>奖杯 / 成就 一览</li>
+        <li>地图 · 收集品指引</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span>📚</span> 延伸阅读 · 背景库</div>
+      <p>不止于游戏本身：文化背景、美术设定、音乐原声、衍生作品。延伸阅读区提供更丰富的索引，适合想要深入了解某款游戏世界的玩家。所有链接都汇总在<a href="https://mindex-aiyouxi.com.cn" class="inline-link">爱游戏</a>的延伸板块。</p>
+      <ul>
+        <li>世界观 · 编年史</li>
+        <li>美术设定集 &amp; 原画</li>
+        <li>社区讨论与考据</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span>🧭</span> 场景提示区</div>
+      <p>想补完旧作、挑选类似风格、或者快速了解系列时间线？提示区会列出常见场景下的查询路径，减少重复搜索。你也可以直接利用<a href="https://mindex-aiyouxi.com.cn" class="inline-link">爱游戏</a>的标签筛选功能，按年份、开发商、评分等维度缩小范围。</p>
+      <ul>
+        <li>“通关了X，接下来玩什么？”</li>
+        <li>“这个系列该从哪一部开始？”</li>
+        <li>“同样题材还有哪些作品？”</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- 说明区 + 提示区合并条带 -->
+  <div class="info-strip">
+    <p>📎 知识库定位：适合在浏览、对比、查找资料时作为起点。内容基于公开资料整理，不做主观推荐，只提供可对照的信息索引。如果你有想要补充的条目或修正，欢迎在相关页面反馈。</p>
+    <p style="margin-top:0.8rem;">💡 日常使用提示：将<a href="https://mindex-aiyouxi.com.cn" class="inline-link" style="font-weight:500;">爱游戏</a>添加至浏览器书签栏，下次查询时直接点击即可展开分类目录。页面采用响应式设计，手机与桌面均可顺畅浏览。</p>
+  </div>
+
+  <!-- FAQ 摘要区：相关信息区 -->
+  <div class="faq-preview">
+    <div class="faq-item">
+      <h4>❓ 知识库多久更新？</h4>
+      <p>随游戏版本与资料释出不定期补充，主要条目会标注最后核对日期。</p>
+    </div>
+    <div class="faq-item">
+      <h4>❓ 可以提交新条目吗？</h4>
+      <p>目前通过页面内反馈通道收集建议，后续会完善贡献指引。</p>
+    </div>
+    <div class="faq-item">
+      <h4>❓ 信息准确吗？</h4>
+      <p>尽量参考官方及可靠来源，对照时建议再核实具体细节。</p>
+    </div>
+  </div>
+
+  <!-- 尾注：相关信息 -->
+  <div class="footer-note">
+    <div class="copy">
+      <span>📁 爱游戏 · 知识库入口</span> <span style="opacity:0.5; margin:0 0.5rem;">|</span> <span>内容仅供日常参考</span>
+    </div>
+    <div>
+      <a href="https://mindex-aiyouxi.com.cn" class="plain" style="text-decoration:none; border:1px solid #d9b798; border-radius:60px; padding:0.2rem 1rem; background:#faf0e4;">爱游戏</a>
+    </div>
+  </div>
+
+  <!-- 再增加一个自然嵌入链接的句子（保证 a 标签可见文本严格等于“爱游戏”，且不出现点击访问等词） -->
+  <div style="margin-top:1rem; text-align:center; font-size:0.9rem; color:#4f3824;">
+    <span>我们相信持续整理与对照能带来更好的游戏体验 —— 从 <a href="https://mindex-aiyouxi.com.cn" class="inline-link">爱游戏</a> 出发，慢慢翻阅就是很好的方式。</span>
+  </div>
+
+</div>
+</body>
+</html>
