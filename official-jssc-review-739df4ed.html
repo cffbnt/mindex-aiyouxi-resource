@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>极速赛车 · 站点介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f7f7f9;
+            color: #1e1e24;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            padding: 2rem 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-wrap {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            margin-bottom: 3.2rem;
+            text-align: left;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #4a4a5a;
+            max-width: 600px;
+            margin-top: 0.4rem;
+        }
+
+        .hero .tagline {
+            display: inline-block;
+            margin-top: 0.8rem;
+            background: #eae8f0;
+            color: #2c2c3a;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* 优势区 — 用简洁卡片排列 */
+        .advantages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .adv-card {
+            flex: 1 1 180px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.6rem 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.03);
+            border: 1px solid #efedf5;
+        }
+
+        .adv-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #1e1e2a;
+        }
+
+        .adv-card p {
+            font-size: 0.92rem;
+            color: #5a5a6a;
+        }
+
+        /* 说明区（站点介绍 + 可信说明） */
+        .intro-section {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.2rem 1.8rem;
+            margin-bottom: 3rem;
+            border: 1px solid #edecf2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+        }
+
+        .intro-section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #1a1a2e;
+            letter-spacing: -0.01em;
+        }
+
+        .intro-section p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #3a3a4a;
+        }
+
+        .intro-section p a {
+            color: #2d3e6b;
+            text-decoration: none;
+            border-bottom: 1.5px solid #cbd5e1;
+            font-weight: 500;
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        .intro-section p a:hover {
+            border-bottom-color: #2d3e6b;
+            color: #101828;
+        }
+
+        .trust-note {
+            background: #f3f1f9;
+            padding: 1.2rem 1.4rem;
+            border-radius: 18px;
+            margin-top: 1.2rem;
+            font-size: 0.92rem;
+            color: #3b3b4e;
+        }
+
+        /* FAQ 摘要 */
+        .faq-summary {
+            margin-bottom: 3rem;
+        }
+
+        .faq-summary h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #1a1a2e;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e0ea;
+            padding: 0.9rem 0;
+        }
+
+        .faq-item:last-of-type {
+            border-bottom: 0;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            font-size: 0.98rem;
+            margin-bottom: 0.1rem;
+            color: #24243a;
+        }
+
+        .faq-a {
+            font-size: 0.92rem;
+            color: #4f4f62;
+            line-height: 1.6;
+        }
+
+        .faq-a a {
+            color: #2d3e6b;
+            border-bottom: 1px solid #cbd5e1;
+            text-decoration: none;
+        }
+
+        .faq-a a:hover {
+            border-bottom-color: #2d3e6b;
+        }
+
+        /* 底部链接区 */
+        .bottom-links {
+            margin-top: 2rem;
+            padding-top: 1.6rem;
+            border-top: 1px solid #e0dee8;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #5f5f72;
+        }
+
+        .bottom-links a {
+            color: #2a3b5c;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .bottom-links a:hover {
+            border-bottom-color: #9da8c2;
+        }
+
+        .bottom-links .sep {
+            margin: 0 0.6rem;
+            color: #c1bfcf;
+        }
+
+        /* 响应式 */
+        @media (max-width: 500px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .adv-card {
+                flex: 1 1 100%;
+            }
+            .intro-section {
+                padding: 1.6rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrap">
+
+        <!-- Hero 区 -->
+        <div class="hero">
+            <h1>极速赛车 · 站点说明</h1>
+            <p>一个以赛车体验为主题的内容站点，围绕玩法介绍、信息整理与爱好者交流展开。</p>
+            <span class="tagline">内容源自公开整理 · 仅供了解</span>
+        </div>
+
+        <!-- 优势区 / 特点卡片 -->
+        <div class="advantages">
+            <div class="adv-card">
+                <h3>信息清晰</h3>
+                <p>从基础规则到常见疑问，分块说明，方便快速定位。</p>
+            </div>
+            <div class="adv-card">
+                <h3>持续更新</h3>
+                <p>站点内容跟随玩法迭代与社区反馈定期补充。</p>
+            </div>
+            <div class="adv-card">
+                <h3>中立视角</h3>
+                <p>不夸大、不诱导，仅呈现经过验证的公开资料。</p>
+            </div>
+        </div>
+
+        <!-- 说明区：站点介绍 + 可信说明 -->
+        <div class="intro-section">
+            <h2>关于这个站点</h2>
+            <p>
+                <a href="https://official-jssc.com">极速赛车</a> 是一个面向爱好者的信息聚合页面，并非官方游戏或博彩平台。
+                站内文字主要整理自公开渠道，包括玩家经验、规则文档以及社区讨论。
+                我们力求准确，但也建议读者结合自身判断，多方查证。
+            </p>
+            <p>
+                如果您刚刚接触这个领域，不妨先浏览基础分类与常见问题；老玩家也可以在这里找到一些整理后的参考信息。
+                内容风格偏向生活化，但保持基本的严谨：每段说明都会标注来源或适用范围。
+            </p>
+            <div class="trust-note">
+                <strong>可信说明：</strong> 本站不收集用户隐私、不嵌入第三方追踪脚本，所有链接均指向公开内容或经过筛选的参考资料。
+                部分描述可能随时间变化，请以实际页面或官方渠道为准。
+            </div>
+        </div>
+
+        <!-- FAQ 摘要 -->
+        <div class="faq-summary">
+            <h2>常见疑问 · 摘要</h2>
+
+            <div class="faq-item">
+                <div class="faq-q">极速赛车是什么类型的活动？</div>
+                <div class="faq-a">通常指一种数字竞速玩法，基于随机数与实时开奖结果。不同平台规则略有差异，建议先阅读对应说明。您可以在 <a href="https://official-jssc.com">极速赛车</a> 页面找到基础介绍。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">站内信息是否可信？</div>
+                <div class="faq-a">所有资料均整理自公开来源，我们尽可能标注参考时间与背景。不构成任何投资或参与建议，请理性看待。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">有没有交流或反馈渠道？</div>
+                <div class="faq-a">目前站点以内容展示为主，未来可能增设社区链接。您可以直接浏览 <a href="https://official-jssc.com">极速赛车</a> 页面获取最新动态。</div>
+            </div>
+        </div>
+
+        <!-- 底部链接 -->
+        <div class="bottom-links">
+            <a href="https://official-jssc.com">极速赛车</a>
+            <span class="sep">·</span>
+            <a href="#">内容说明</a>
+            <span class="sep">·</span>
+            <span>非官方站点 · 仅限参考</span>
+        </div>
+
+    </div>
+</body>
+</html>
